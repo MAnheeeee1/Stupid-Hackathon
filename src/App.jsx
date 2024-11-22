@@ -1,11 +1,11 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import "./App.css";
 import * as faceapi from "face-api.js";
 
 function App() {
   const videoRef = useRef();
   const canvasRef = useRef();
-
+  const [mood, setMood] = useState("Happy");
   // LOAD FROM USEEFFECT
   useEffect(() => {
     startVideo();
@@ -49,6 +49,7 @@ function App() {
           const expressions = detection.expressions;
           if (expressions.angry > 0.5) {
             console.log("Angry");
+            setMood("Angry");
           }
         });
       }
@@ -58,6 +59,7 @@ function App() {
   return (
     <div className="myapp">
       <h1>FAce Detection</h1>
+      <p>Your mode:{mood}</p>
       <div className="appvide">
         <video crossOrigin="anonymous" ref={videoRef} autoPlay></video>
       </div>
